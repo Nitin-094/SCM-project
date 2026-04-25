@@ -1,0 +1,94 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #101828;
+  background: radial-gradient(circle at top, #eef4ff 0%, #f8fafc 42%, #f5f7fb 100%);
+  --bg-soft: #f5f7fb;
+  --bg-surface: #ffffff;
+  --text-main: #101828;
+  --text-muted: #667085;
+  --border-color: #d0d5dd;
+  --accent: #5b4bff;
+  --accent-hover: #4338ca;
+  --danger: #dc2626;
+  --meter: #7c3aed;
+  --mouse-x: 50vw;
+  --mouse-y: 50vh;
+}
+
+:root[data-theme='dark'] {
+  color: #f2f4f7;
+  background: radial-gradient(circle at top, #151726 0%, #10131f 45%, #0b0d15 100%);
+  --bg-soft: #0e1220;
+  --bg-surface: #141a2d;
+  --text-main: #f2f4f7;
+  --text-muted: #98a2b3;
+  --border-color: #27314f;
+  --accent: #8b80ff;
+  --accent-hover: #a095ff;
+  --danger: #ff6b6b;
+  --meter: #b59cff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-main);
+  background: inherit;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  width: 440px;
+  height: 440px;
+  left: calc(var(--mouse-x) - 220px);
+  top: calc(var(--mouse-y) - 220px);
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent) 0%, transparent 68%);
+  filter: blur(48px);
+  transition: left 120ms linear, top 120ms linear;
+}
+
+body::after {
+  width: 380px;
+  height: 380px;
+  right: -110px;
+  top: -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--meter) 45%, transparent) 0%, transparent 70%);
+  filter: blur(55px);
+  opacity: 0.45;
+  animation: ambientFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes ambientFloat {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(26px, -18px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    transition: none;
+  }
+  body::after {
+    animation: none;
+  }
+}
