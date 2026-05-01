@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import morgan from "morgan";
 
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
@@ -17,6 +18,7 @@ const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || "")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 app.use(
   cors({
     origin(origin, callback) {
